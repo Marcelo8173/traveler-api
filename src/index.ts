@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import express, { json } from "express";
 import routes from "./routes";
+import "reflect-metadata";
+import "./config/database/connection";
 
 const server = express();
 

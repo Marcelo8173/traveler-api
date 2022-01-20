@@ -1,0 +1,22 @@
+{
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "postgres",
+    "password": "docker",
+    "database": "traveler",
+    "synchronize": true,
+    "logging": false,
+    "cli": {
+      "migrationsDir": "./src/data/migrations"
+    },
+    "entities": [
+       "src/entity/**/*.ts"
+    ],
+    "migrations": [
+       "src/data/migrations/**/*.ts"
+    ],
+    "subscribers": [
+       "src/subscriber/**/*.ts"
+    ]
+ }
