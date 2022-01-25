@@ -5,9 +5,9 @@ import { UserModel } from "../../models/userModel";
 import { UserRepositoryProtocols } from "../../protocols/userRespositoryProtocol/userRepository.protocol";
 
 class UserRepository implements UserRepositoryProtocols {
-  private userRepository:Repository<UserModel>;
+  private userRepository: Repository<UserModel>;
 
-  constructor(repository:Repository<UserModel>) {
+  constructor(repository: Repository<UserModel>) {
     this.userRepository = repository;
   }
 
@@ -22,6 +22,13 @@ class UserRepository implements UserRepositoryProtocols {
     } else {
       return true;
     }
+  }
+
+  async findUserByEmail(email: string): Promise<UserModel> {
+    const findUser = await this.userRepository.query(
+      `SELECT * FROM "user" where email = '${email}'`,
+    );
+    return findUser[0];
   }
 
   async create(data: CreateNewUserDTO): Promise<UserModel> {

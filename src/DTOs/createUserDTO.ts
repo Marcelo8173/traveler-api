@@ -3,3 +3,8 @@ export interface CreateNewUserDTO {
     email: string;
     password: string;
 }
+
+export interface UserAuthenticationDTO {
+    email: string;
+    password: string
+}

@@ -7,5 +7,8 @@ const userController = new UserController();
 userRoutes.post("/users", (request, response) => (
   userController.createNewUser(request, response)
 ));
+userRoutes.post("/login", (request, response) => (
+  userController.authenticationUser(request, response)
+));
 
 export default userRoutes;
