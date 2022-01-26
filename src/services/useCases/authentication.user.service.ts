@@ -1,3 +1,4 @@
+import { sign } from "jsonwebtoken";
 import { UserRepository } from "../../repository/userRepository/user.repository";
 import { UserAuthenticationDTO } from "../../DTOs/createUserDTO";
 import { AuthenticationUserProtocol, RequestMsg } from "../../protocols/userServicesProtocol/userService.protocol";
@@ -36,11 +37,16 @@ class AuthenticationUserService implements AuthenticationUserProtocol {
         },
       };
     }
+    // create token
+    const token = sign({}, process.env.APP_SECRET || "default", {
+      subject: findUser.id,
+      expiresIn: "2h",
+    });
 
     return {
       status: 200,
       body: {
-        msg: "ok",
+        token,
       },
     };
   }
