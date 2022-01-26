@@ -5,10 +5,11 @@ import { CreateNewUserDTO, UserAuthenticationDTO } from "../DTOs/createUserDTO";
 import { UserRepository } from "../repository/userRepository/user.repository";
 import CreateUserService from "../services/useCases/create.user.service";
 import BCryptHashProvider from "../utils/encription";
+import AuthenticationUserService from "../services/useCases/authentication.user.service";
 
 class UserController {
-  async createNewUser(request:Request, response:Response): Promise<Response> {
-    const dataRequest:CreateNewUserDTO = request.body;
+  async createNewUser(request: Request, response: Response): Promise<Response> {
+    const dataRequest: CreateNewUserDTO = request.body;
 
     const repository = getRepository(UserModel);
     const userRepository = new UserRepository(repository);
@@ -26,27 +27,19 @@ class UserController {
     }
   }
 
-  async authenticationUser(request:Request, response:Response): Promise<Response> {
+  async authenticationUser(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const requestData: UserAuthenticationDTO = request.body;
+    const repository = getRepository(UserModel);
+    const userRepository = new UserRepository(repository);
+    const bCryptHash = new BCryptHashProvider();
+    const authenticationUserService = new AuthenticationUserService(userRepository, bCryptHash);
     try {
-      const requestData: UserAuthenticationDTO = request.body;
-      const repository = getRepository(UserModel);
-      const userRepository = new UserRepository(repository);
-      const bCryptHash = new BCryptHashProvider();
-
-      const userExist = await userRepository.findByEmail(requestData.email);
-
-      if (!userExist) {
-        return response.status(404).json({ msg: "User or password incorrect" });
-      }
-
-      const findUser = await userRepository.findUserByEmail(requestData.email);
-      const comparePAssword = await bCryptHash.compareHash(requestData.password, findUser.password);
-      if (!comparePAssword) {
-        return response.status(404).json({ msg: "User or password incorrect" });
-      }
-
-      return response.status(200).json({ msg: "ok" });
+      const data = await authenticationUserService.execute(requestData);
       // retornar um status de sucesso e um token jwt para athenticação
+      return response.status(data.status).json(data.body);
     } catch (error) {
       return response.status(500);
     }

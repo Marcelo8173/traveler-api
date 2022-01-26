@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { CreateNewUserDTO } from "../../DTOs/createUserDTO";
+import { CreateNewUserDTO, UserAuthenticationDTO } from "../../DTOs/createUserDTO";
 
 export interface RequestMsg {
     status: number,
@@ -8,4 +8,8 @@ export interface RequestMsg {
 
 export interface CreateUserServiceProtocol {
     execute(data: CreateNewUserDTO): Promise<RequestMsg>;
+}
+
+export interface AuthenticationUserProtocol {
+    execute(data: UserAuthenticationDTO): Promise<RequestMsg>;
 }
