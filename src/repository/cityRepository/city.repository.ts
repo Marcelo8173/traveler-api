@@ -14,10 +14,11 @@ class CityRepository implements CityRepositoryProtocols {
     const dataToSave = this.cityRepository.create(data);
 
     await this.cityRepository.query(
-      `INSERT INTO "city" (id, name, created_at, updated_at)
+      `INSERT INTO "city" (id, name, description, created_at, updated_at)
         values(
             '${dataToSave.id}', 
             '${dataToSave.name}', 
+            '${dataToSave.description}', 
             '${new Date().toLocaleString()}', 
             '${new Date().toLocaleString()}')
         `,
