@@ -4,9 +4,13 @@ import { CreateCityDTO } from "../../DTOs/cityDTO";
 import { RequestMsg } from "../userServicesProtocol/userService.protocol";
 
 export interface CityRepositoryProtocols {
-    create(data:CreateCityDTO): Promise<CityModel>;
+  create(data: CreateCityDTO): Promise<CityModel>;
 }
 
 export interface CreateCityServiceProtocols {
-    execute(data: CreateCityDTO): Promise<RequestMsg>
+  execute(data: CreateCityDTO): Promise<RequestMsg>;
+}
+
+export interface ListCityServiceProtocols {
+  execute(): Promise<RequestMsg>;
 }

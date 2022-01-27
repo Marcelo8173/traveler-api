@@ -26,6 +26,15 @@ class CityRepository implements CityRepositoryProtocols {
 
     return dataToSave;
   }
+
+  async listAll(): Promise<CityModel[]> {
+    const cities = await this.cityRepository.query(
+      `SELECT * FROM "city"
+      `,
+    );
+
+    return cities;
+  }
 }
 
 export default CityRepository;

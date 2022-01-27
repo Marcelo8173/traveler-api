@@ -9,4 +9,8 @@ userRoutes.post("/city", ensureAuthentication, (request, response) => (
   cityController.createNewCity(request, response)
 ));
 
+userRoutes.get("/city", ensureAuthentication, (request, response) => (
+  cityController.listAllCities(request, response)
+));
+
 export default userRoutes;
