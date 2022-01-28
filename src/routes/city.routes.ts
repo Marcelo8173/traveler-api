@@ -13,4 +13,8 @@ userRoutes.get("/city", ensureAuthentication, (request, response) => (
   cityController.listAllCities(request, response)
 ));
 
+userRoutes.get("/city/:id", ensureAuthentication, (request, response) => (
+  cityController.getCityById(request, response)
+));
+
 export default userRoutes;

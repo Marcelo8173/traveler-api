@@ -35,6 +35,14 @@ class CityRepository implements CityRepositoryProtocols {
 
     return cities;
   }
+
+  async getCityBiId(id: string): Promise<CityModel> {
+    const cities = await this.cityRepository.query(
+      `SELECT * FROM "city" where id = '${id}'
+      `,
+    );
+    return cities;
+  }
 }
 
 export default CityRepository;

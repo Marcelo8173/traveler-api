@@ -14,3 +14,7 @@ export interface CreateCityServiceProtocols {
 export interface ListCityServiceProtocols {
   execute(): Promise<RequestMsg>;
 }
+
+export interface ListCityByIdProtocols {
+  execute(id: string): Promise<RequestMsg>;
+}
