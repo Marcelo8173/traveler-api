@@ -11,7 +11,15 @@ class ListCityService implements ListCityServiceProtocols {
 
   async execute(): Promise<RequestMsg> {
     try {
-      const data = await this.cityRepository.listAll();
+      const listAllCities = await this.cityRepository.listAll();
+      const citielsWithLocations = await this.cityRepository.listCitiesWithLocations();
+      const data = [...listAllCities];
+
+      citielsWithLocations.forEach((element) => {
+        const cityExist = listAllCities.findIndex((city) => city.name === element.name);
+        data[cityExist].locations = element.locations;
+      });
+
       return {
         status: 200,
         body: data,

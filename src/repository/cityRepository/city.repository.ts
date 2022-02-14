@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { CreateCityDTO } from "../../DTOs/cityDTO";
+import { CreateCityDTO, ListCityDTO } from "../../DTOs/cityDTO";
 import { CityModel } from "../../models/cityModel";
 import { CityRepositoryProtocols } from "../../protocols/cityRepositoryProtcol/cityRepositoryProtcol.protocol";
 
@@ -27,13 +27,22 @@ class CityRepository implements CityRepositoryProtocols {
     return dataToSave;
   }
 
-  async listAll(): Promise<CityModel[]> {
+  async listAll(): Promise<ListCityDTO[]> {
     const cities = await this.cityRepository.query(
       `SELECT * FROM "city"
       `,
     );
 
     return cities;
+  }
+
+  async listCitiesWithLocations(): Promise<any[]> {
+    const citielsWithLocations = await this.cityRepository.query(
+      `
+      select c.name, count(l.name) as locations from "city" c inner join "location" l ON c.id = l.city_id group by c.name
+      `,
+    );
+    return citielsWithLocations;
   }
 
   async getCityBiId(id: string): Promise<CityModel> {
