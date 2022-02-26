@@ -1,6 +1,5 @@
 /* eslint-disable arrow-body-style */
 import * as yup from "yup";
-import { LocationDTO } from "../../DTOs/locationDTO";
 import { CategoryEnum } from "../../enuns";
 
 export const schemaCreateNewLocation = yup.object().shape({
@@ -14,7 +13,12 @@ export const schemaCreateNewLocation = yup.object().shape({
   city_id: yup.string().required(),
 });
 
-export const isValid = async (object: yup.AnyObjectSchema, data: LocationDTO) => {
+export const schemaCreateNewCity = yup.object().shape({
+  name: yup.string().required(),
+  description: yup.string().required(),
+});
+
+export const isValid = async (object: yup.AnyObjectSchema, data: any) => {
   const valid = await object.validate(data).catch((err) => (err));
   return valid;
 };

@@ -31,6 +31,15 @@ class LocationRepository implements LocationRepositoryProtocols {
 
     return dataToSave;
   }
+
+  async listAllLocations(): Promise<LocationModel[]> {
+    const data = await this.locationRepository.query(
+      `
+        select * from "location"
+      `,
+    );
+    return data;
+  }
 }
 
 export default LocationRepository;

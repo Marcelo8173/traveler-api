@@ -9,4 +9,12 @@ userRoutes.post("/location", ensureAuthentication, (request, response) => (
   locationController.createNewLocation(request, response)
 ));
 
+userRoutes.get("/location", ensureAuthentication, (request, response) => (
+  locationController.listAllLocations(request, response)
+));
+
+userRoutes.get("/location/categories", ensureAuthentication, (request, response) => {
+  locationController.listAllCategories(request, response);
+});
+
 export default userRoutes;
